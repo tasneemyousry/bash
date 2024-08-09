@@ -7,6 +7,7 @@ organize_files() {
   
   folders=('Image_Files' 'Docs' 'Audio_Files' 'Video_Files' 'PDFs' 'Scripts' 'Compressed_Files')
   # Create Folders if they don't already exist
+  # a better way than writing them out manually
   subdir="${dir##*/}"
   if ! [[ ${folders[@]} =~ "$subdir"  ]]
   then
@@ -24,6 +25,7 @@ organize_files() {
 
   #Docs Files 
   mv *.doc *.docx *.txt Docs 2>/dev/null
+
   # Audio Files
   mv *.mp3 *.m4a *.flac *.aac *.ogg *.wav Audio_Files 2>/dev/null
 
@@ -39,8 +41,7 @@ organize_files() {
   # Compressed Files
   mv *.rar *.zip *.gz Compressed_Files 2>/dev/null
 
-  # Move the organizing script itself back to the parent folder after going 
-  #one level down
+  # Move the organizing script itself back to the parent folder after going one level down
   if [[ "$dir" == "." ]]; then
     mv organize.sh .. 2>/dev/null
   fi
@@ -48,8 +49,7 @@ organize_files() {
   cd - > /dev/null
 }
 
-# Organize files in the current directory
-
+# Organize files in the parent directory
 organize_files "$1"
 
 # Organize files in the first-level subdirectories
